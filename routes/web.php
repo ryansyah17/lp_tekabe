@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\admin\ServiceController;
+use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,4 +32,26 @@ Route::get('/services', [HomeController::class, 'services'])->name('services');
 Route::prefix('admin')->group(function () {
     Route::get('/', [AuthController::class, 'index'])->name('login');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // user route
+    Route::controller(UserController::class)
+        ->prefix('users')
+        ->group(function () {
+            Route::get('/', 'index')->name('users.index');
+            Route::get('/create', 'create')->name('users.create');
+            Route::post('/create', 'store')->name('users.store');
+            Route::get('/{user}/delete', 'destroy')->name('users.destroy');
+        });
+
+    // service route
+    Route::controller(ServiceController::class)
+        ->prefix('service')
+        ->group(function () {
+            Route::get('/', 'index')->name('service.index');
+            Route::get('/create', 'create')->name('service.create');
+            Route::post('/create', 'store')->name('service.store');
+            Route::get('/{service}/edit', 'edit')->name('service.edit');
+            Route::post('/{service}/edit', 'update')->name('service.update');
+            Route::get('/{service}/delete', 'destroy')->name('service.destroy');
+        });
 });
