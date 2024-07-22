@@ -14,17 +14,20 @@
             </div>
         </div>
         <div class="navbar-nav w-100">
-            <a href="index.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+            <a href="{{ route('dashboard') }}" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
             <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Database</a>
-                <div class="dropdown-menu bg-transparent border-0">
-                    <a href="button.html" class="dropdown-item">User</a>
-                    <a href="typography.html" class="dropdown-item">Services</a>
-                    <a href="element.html" class="dropdown-item">Sector</a>
+                <a href="#" class="nav-link dropdown-toggle {{ Request::routeIs('users.*') || Request::routeIs('service.*') ? 'show' : '' }}" data-bs-toggle="dropdown"><i class="fa fa-laptop me-2"></i>Database</a>
+                <div class="dropdown-menu bg-transparent border-0 {{ Request::routeIs('users.*') || Request::routeIs('service.*') ? 'show' : '' }}">
+                    <a href="{{ route('users.index') }}" class="dropdown-item {{ Request::routeIs('users.*') ? 'active' : '' }}">User</a>
+                    <a href="{{ route('service.index') }}" class="dropdown-item {{ Request::routeIs('service.*') ? 'active' : '' }}">Services</a>
                 </div>
             </div>
-            <a href="index.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Project</a>
-            <a href="index.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Setting</a>
+            <a href="index.html" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Project</a>
+            <a href="index.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Setting</a>
         </div>
+
     </nav>
+    <div class="position-absolute bottom-0 end-0 p-4">
+        <p class="text-muted mb-0">Copyright © 2022. All rights reserved</p>
+    </div>
 </div>

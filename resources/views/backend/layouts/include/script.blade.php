@@ -11,3 +11,46 @@
 
  <!-- Template Javascript -->
  <script src="{{ asset('backend') }}/js/main.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+ @if (session('success'))
+     <script>
+        Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Your work has been saved",
+        showConfirmButton: false,
+        timer: 1500
+        });
+     </script>
+ @endif
+
+ @if (session('error'))
+     <script>
+        Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Your work has not been saved, Try again",
+        showConfirmButton: false,
+        timer: 1500
+        });
+     </script>
+ @endif
+
+ <script>
+     function deleteData(url){
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = url;
+                }
+            });
+     }
+ </script>
