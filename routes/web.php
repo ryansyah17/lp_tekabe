@@ -31,7 +31,11 @@ Route::get('/services', [HomeController::class, 'services'])->name('services');
 
 Route::prefix('admin')->group(function () {
     Route::get('/', [AuthController::class, 'index'])->name('login');
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.proses');
+
+    Route::middleware(['auth'])->group(function(){
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
     // user route
     Route::controller(UserController::class)
@@ -54,4 +58,6 @@ Route::prefix('admin')->group(function () {
             Route::post('/{service}/edit', 'update')->name('service.update');
             Route::get('/{service}/delete', 'destroy')->name('service.destroy');
         });
+    });
+    
 });
